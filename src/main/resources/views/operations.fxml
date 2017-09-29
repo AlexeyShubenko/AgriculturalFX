@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="409.0" prefWidth="445.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <Pane prefHeight="400.0" prefWidth="444.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane layoutX="4.0" prefHeight="153.0" prefWidth="466.0">
+               <children>
+                  <Button layoutX="247.0" layoutY="71.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="83.0" text="Додати" />
+                  <TextField layoutX="247.0" layoutY="31.0" promptText="дискування" />
+                  <Button layoutX="22.0" layoutY="114.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="181.0" text="Оновити дані в таблиці" />
+                  <Label layoutX="22.0" layoutY="36.0" text="Нова технологічна операція:" />
+               </children>
+            </Pane>
+            <SplitPane layoutY="159.0" prefHeight="250.0" prefWidth="445.0">
+               <items>
+                  <TreeTableView prefHeight="248.0" prefWidth="436.0">
+                    <columns>
+                      <TreeTableColumn prefWidth="65.0" text="№" />
+                      <TreeTableColumn prefWidth="269.0" text="Операція" />
+                        <TreeTableColumn minWidth="0.0" prefWidth="112.0" text="Видалити" />
+                    </columns>
+                  </TreeTableView>
+               </items>
+            </SplitPane>
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

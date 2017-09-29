@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="486.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <Pane prefHeight="400.0" prefWidth="426.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane layoutX="4.0" prefHeight="170.0" prefWidth="486.0">
+               <children>
+                  <Button layoutX="21.0" layoutY="114.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="181.0" text="Оновити дані в таблиці" />
+                  <Button layoutX="286.0" layoutY="69.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="82.0" text="Додати " />
+                  <TextField layoutX="286.0" layoutY="26.0" promptText="МТ3" />
+                  <Label layoutX="21.0" layoutY="31.0" text="Новий машинно-тракторний агрегат:" />
+               </children>
+            </Pane>
+            <SplitPane layoutY="170.0" prefHeight="250.0" prefWidth="486.0">
+               <items>
+                  <TreeTableView prefHeight="248.0" prefWidth="486.0">
+                    <columns>
+                      <TreeTableColumn prefWidth="65.0" text="№" />
+                      <TreeTableColumn prefWidth="313.0" text="Машинно тракторний агрегат" />
+                        <TreeTableColumn minWidth="0.0" prefWidth="107.0" text="Видалити" />
+                    </columns>
+                  </TreeTableView>
+               </items>
+            </SplitPane>
+         </children>
+      </Pane>
+   </center>
+</BorderPane>
