@@ -17,16 +17,18 @@ public class Start extends Application {
 
 
     public void start(Stage primaryStage) throws Exception {
-//        Parent parent = FXMLLoader.load(getClass().getResource("/views/start_page.fxml"));
-        Parent parent = FXMLLoader.load(getClass().getResource("/views/operations.fxml"));
-//        Parent parent = FXMLLoader.load(getClass().getResource("/views/machines.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("/views/start_page.fxml"));
         Scene scene = new Scene(parent);
 
         primaryStage.setTitle("Agricultural");
 //        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
-        primaryStage.setMinHeight(480);
-        primaryStage.setMinWidth(450);
+        /*
+         * For Operation window
+         * */
+//        primaryStage.setMinHeight(480);
+//        primaryStage.setMinWidth(450);
+
         primaryStage.sizeToScene();
         primaryStage.show();
     }
