@@ -11,17 +11,17 @@ import javafx.scene.control.TextField;
 /*
 * handle all actions for operation window
 * */
-public class OperationController {
+public class MachineController {
 
     @FXML
-    private TextField operationField;
+    private TextField machineField;
 
     /*
     * when click on add new operation Button
     * */
-    public void addOperation(ActionEvent actionEvent) {
+    public void addMachine(ActionEvent actionEvent) {
 
-        String operation = operationField.getText();
+        String operation = machineField.getText();
 
         if(operation.equals("")){
             DialogManager.showError("Помилка при введені даних", "Заповніть текстове поле!");
