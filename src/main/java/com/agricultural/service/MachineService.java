@@ -15,5 +15,6 @@ public interface MachineService {
     ArrayList<MachineTractorUnit> getMachines();
     String[] getAllMachinesName();
     MachineTractorUnit getMachineByName(String machineName);
+    boolean isExistMachine(String machineName);
 
 }

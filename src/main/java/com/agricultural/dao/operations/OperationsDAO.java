@@ -15,4 +15,5 @@ public interface OperationsDAO {
     ArrayList<TechnologicalOperation> getOperations();
     String[] getAllOperationsName();
     TechnologicalOperation getOperationByName(String operationName);
+    boolean isExistOperation(String operation);
 }

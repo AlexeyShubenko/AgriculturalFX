@@ -51,4 +51,9 @@ public class OperationServiceImpl implements OperationService {
     public TechnologicalOperation getOperationByName(String operationName) {
         return operationsDAO.getOperationByName(operationName);
     }
+
+    @Override
+    public boolean isExistOperation(String operationName) {
+        return operationsDAO.isExistOperation(operationName);
+    }
 }

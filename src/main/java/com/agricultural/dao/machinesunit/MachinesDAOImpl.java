@@ -7,6 +7,7 @@ import org.hibernate.query.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Created by Alexey on 14.02.2017.
@@ -122,6 +123,13 @@ public class MachinesDAOImpl implements MachinesDAO {
             session.close();
         }
         return machine;
+    }
+
+    @Override
+    public boolean isExistMachine(String machineName) {
+        MachineTractorUnit machine = getMachineByName(machineName);
+        //if exist -> true
+        return Objects.nonNull(machine);
     }
 
 }

@@ -33,6 +33,15 @@ public class Start extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {Application.launch(args);}
+    public static void main(String[] args) {
+        startAcceleration();
+        Application.launch(args);
+    }
+
+    private static void startAcceleration() {
+        Thread thread = new Thread(new Util());
+        thread.start();
+        //change!!!!!!!!!!
+    }
 
 }

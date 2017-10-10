@@ -1,5 +1,7 @@
 package com.agricultural.controllers;
 
+import com.agricultural.service.OperationService;
+import com.agricultural.service.impl.OperationServiceImpl;
 import com.agricultural.utils.DialogManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +15,8 @@ import javafx.scene.control.TextField;
 * */
 public class OperationController {
 
+    private OperationService operationService = OperationServiceImpl.getInstance();
+
     @FXML
     private TextField operationField;
 
@@ -21,10 +25,15 @@ public class OperationController {
     * */
     public void addOperation(ActionEvent actionEvent) {
 
-        String operation = operationField.getText();
+        String newOperation = operationField.getText().trim();
 
-        if(operation.equals("")){
+        if(newOperation.equals("")){
             DialogManager.showError("Помилка при введені даних", "Заповніть текстове поле!");
+        }
+        boolean isExistOperation= operationService.isExistOperation(newOperation);
+
+        if(isExistOperation){
+            DialogManager.showError("Помилка при введені даних", "Операція " + newOperation + " вже існує!" );
         }
 
     }

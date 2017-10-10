@@ -51,4 +51,9 @@ public class MachineServiceImpl implements MachineService {
     public MachineTractorUnit getMachineByName(String machineName) {
         return machinesDAO.getMachineByName(machineName);
     }
+
+    @Override
+    public boolean isExistMachine(String machineName) {
+        return machinesDAO.isExistMachine(machineName);
+    }
 }

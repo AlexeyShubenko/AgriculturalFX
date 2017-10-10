@@ -1,5 +1,7 @@
 package com.agricultural.controllers;
 
+import com.agricultural.service.MachineService;
+import com.agricultural.service.impl.MachineServiceImpl;
 import com.agricultural.utils.DialogManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +15,7 @@ import javafx.scene.control.TextField;
 * */
 public class MachineController {
 
+    private MachineService machineService = MachineServiceImpl.getInstance();
     @FXML
     private TextField machineField;
 
@@ -21,11 +24,7 @@ public class MachineController {
     * */
     public void addMachine(ActionEvent actionEvent) {
 
-        String operation = machineField.getText();
-
-        if(operation.equals("")){
-            DialogManager.showError("Помилка при введені даних", "Заповніть текстове поле!");
-        }
+        
 
     }
 }
