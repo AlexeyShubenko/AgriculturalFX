@@ -1,5 +1,6 @@
 package com.agricultural.domains.main;
 
+import com.agricultural.domains.dto.TechnologicalOperationDto;
 import com.agricultural.domains.gectarniyvirobitok.DriverDataHectare;
 import com.agricultural.domains.hoursvirobitok.DriverDataHour;
 import lombok.Data;
@@ -20,7 +21,7 @@ public class TechnologicalOperation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long operation_id;
+    private Long operationId;
     @Column(name = "operation")
     private String name;
 
@@ -29,5 +30,25 @@ public class TechnologicalOperation implements Serializable {
 
     @OneToMany(mappedBy = "operation")
     private List<DriverDataHour> listDataHour = new ArrayList<>();
+
+    public static class Builder{
+
+        TechnologicalOperation operation = new TechnologicalOperation();
+
+        public Builder setOperationId(TechnologicalOperationDto operationDto){
+            operation.setOperationId(operationDto.getId());
+            return this;
+        }
+
+        public Builder setOperationName(TechnologicalOperationDto operationDto){
+            operation.setName(operationDto.getOperationName());
+            return this;
+        }
+
+        public TechnologicalOperation build(){
+            return operation;
+        }
+
+    }
 
 }

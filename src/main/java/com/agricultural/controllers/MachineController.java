@@ -24,7 +24,15 @@ public class MachineController {
     * */
     public void addMachine(ActionEvent actionEvent) {
 
-        
+        String machine = machineField.getText().trim();
+
+        if(machine.equals("")){
+            DialogManager.showError("Помилка при введені даних", "Заповніть текстове поле!");
+        }
+        boolean isExistMachine = machineService.isExistMachine(machine);
+        if(isExistMachine){
+            DialogManager.showError("Помилка при введені даних", "Машино тракторний аргегат " + machine + " вже існує!" );
+        }
 
     }
 }

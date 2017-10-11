@@ -1,12 +1,14 @@
 package com.agricultural.dao.operations;
 
 import com.agricultural.dao.HibernateUtil;
+import com.agricultural.domains.dto.TechnologicalOperationDto;
 import com.agricultural.domains.main.TechnologicalOperation;
 import org.hibernate.query.Query;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -48,8 +50,8 @@ public class OperationDAOImpl implements OperationsDAO {
         EntityTransaction tx = session.getTransaction();
         try{
             tx.begin();
-            session.createQuery("delete TechnologicalOperation where operation_id=:id")
-                    .setParameter("id",operation.getOperation_id()).executeUpdate();
+            session.createQuery("delete TechnologicalOperation where operationId=:id")
+                    .setParameter("id",operation.getOperationId()).executeUpdate();
             tx.commit();
         }catch(Exception e){
             if (tx != null) {
@@ -66,7 +68,15 @@ public class OperationDAOImpl implements OperationsDAO {
         EntityTransaction tx = session.getTransaction();
         try{
             tx.begin();
-            session.merge(operation);
+//            TechnologicalOperation oldOperation =
+//                    (TechnologicalOperation) session.createQuery("from TechnologicalOperation where operationId=:id")
+//                    .setParameter("id",operation.getOperationId())
+////                    .setParameter("name",operation.getName())
+//                    .getSingleResult();
+//            oldOperation.setName(operation.getName());
+            session.createQuery("update TechnologicalOperation set name=:name where operationId=:id")
+                    .setParameter("id",operation.getOperationId())
+                    .setParameter("name",operation.getName()).executeUpdate();
             tx.commit();
         }catch(Exception e){
             if (tx != null) {
@@ -77,14 +87,13 @@ public class OperationDAOImpl implements OperationsDAO {
         }
     }
 
-    public ArrayList<TechnologicalOperation> getOperations() {
+    public List<TechnologicalOperation> getOperations() {
         session = HibernateUtil.getSessionFactory().createEntityManager();
         EntityTransaction tx = session.getTransaction();
-        ArrayList<TechnologicalOperation> allOperations = null;
-        try{
+        List<TechnologicalOperation> allOperations = null;try{
             tx.begin();
             Query<TechnologicalOperation> query = (Query<TechnologicalOperation>) session.createQuery("from TechnologicalOperation");
-            allOperations =  (ArrayList<TechnologicalOperation>) query.list();
+            allOperations = query.list();
             tx.commit();
         }catch(Exception e){
             if (tx != null) {
@@ -93,12 +102,14 @@ public class OperationDAOImpl implements OperationsDAO {
         }finally {
             session.close();
         }
+
+
         return allOperations;
     }
 
     public String[] getAllOperationsName(){
         ///отримаємо список всіх операцій
-        ArrayList<TechnologicalOperation> arrayOperations = getOperations();
+        List<TechnologicalOperation> arrayOperations = getOperations();
         String[] names = new String [arrayOperations.size()];
         ///записуєо назви операцій у масив
         for (int i=0;i<names.length;i++){

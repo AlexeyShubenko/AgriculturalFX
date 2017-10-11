@@ -63,7 +63,7 @@ public class StartPageController {
             //Вікно встановлюєтсья як модальне
 //            allOperationsStage.initModality(Modality.WINDOW_MODAL);
             //встановлює вікно з якого було визвано дане вікно
-            allOperationsStage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
+//            allOperationsStage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
             allOperationsStage.show();
 
 

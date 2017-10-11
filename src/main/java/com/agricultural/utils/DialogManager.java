@@ -18,5 +18,13 @@ public class DialogManager {
         alert.showAndWait();
     }
 
+    public static void showInfo(String title, String text){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setContentText(text);
+        alert.setHeaderText("");
+        alert.showAndWait();
+    }
+
 
 }
