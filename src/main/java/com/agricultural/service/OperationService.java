@@ -9,8 +9,8 @@ import java.util.List;
  */
 public interface OperationService {
 
-    void createOperation(String operationName);
-    void deleteOperation(TechnologicalOperation operation);
+    Long createOperation(String operationName);
+    void deleteOperation(TechnologicalOperationDto operationDto);
     void editOperation(TechnologicalOperationDto operationDto);
     List<TechnologicalOperationDto> getOperations();
     String[] getAllOperationsName();

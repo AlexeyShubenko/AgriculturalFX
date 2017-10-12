@@ -27,14 +27,16 @@ public class OperationDAOImpl implements OperationsDAO {
 
     private EntityManager session;
 
-    public void createOperation(String operationName) {
+    public Long createOperation(String operationName) {
         session = HibernateUtil.getSessionFactory().createEntityManager();
         EntityTransaction tx = session.getTransaction();
         TechnologicalOperation operation = new TechnologicalOperation();
         operation.setName(operationName);
+        Long id = null;
         try{
             tx.begin();
             session.persist(operation);
+            id = operation.getOperationId();
             tx.commit();
         }catch(Exception e){
             if (tx != null) {
@@ -43,6 +45,7 @@ public class OperationDAOImpl implements OperationsDAO {
         }finally {
             session.close();
         }
+        return id;
     }
 
     public void deleteOperation(TechnologicalOperation operation) {

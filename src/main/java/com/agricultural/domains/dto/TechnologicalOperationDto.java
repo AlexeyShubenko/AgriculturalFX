@@ -1,6 +1,7 @@
 package com.agricultural.domains.dto;
 
 import com.agricultural.domains.main.TechnologicalOperation;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  * Created by Alexey on 02.04.2017.

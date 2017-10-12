@@ -26,12 +26,18 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
-    public void createOperation(String operationName) {
-        operationsDAO.createOperation(operationName);
+    public Long createOperation(String operationName) {
+        return operationsDAO.createOperation(operationName);
     }
 
     @Override
-    public void deleteOperation(TechnologicalOperation operation) {
+    public void deleteOperation(TechnologicalOperationDto operationDto) {
+        TechnologicalOperation operation = new TechnologicalOperation.Builder()
+                .setOperationId(operationDto)
+                .setOperationName(operationDto)
+                .build();
+        System.out.println(operationDto.toString());
+        System.out.println(operation.toString());
         operationsDAO.deleteOperation(operation);
     }
 
@@ -46,7 +52,26 @@ public class OperationServiceImpl implements OperationService {
 
     @Override
     public List<TechnologicalOperationDto> getOperations() {
+        List<TechnologicalOperation> allOperations = operationsDAO.getOperations();
+        List<TechnologicalOperationDto> allOperationsDto = new ArrayList<>();
 
+        int i = 1;
+        for(TechnologicalOperation operation: allOperations){
+            TechnologicalOperationDto operationDto = new TechnologicalOperationDto.Builder()
+                    .setId(operation)
+                    .setOperationName(operation)
+                    .build();
+            operationDto.setSerialNumber(i++);
+            allOperationsDto.add(operationDto);
+            System.out.println(i + ": " + operation.toString());
+//            allOperationsDto.sort((o1, o2) -> (int)(o1.getId()-o2.getId()));
+        }
+
+//        for (TechnologicalOperationDto op:allOperationsDto) {
+//            System.out.println(op.toString());
+//        }
+
+        return allOperationsDto;
     }
 
     @Override

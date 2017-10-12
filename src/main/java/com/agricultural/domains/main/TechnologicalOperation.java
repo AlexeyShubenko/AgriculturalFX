@@ -51,4 +51,11 @@ public class TechnologicalOperation implements Serializable {
 
     }
 
+    @Override
+    public String toString() {
+        return "TechnologicalOperation{" +
+                "operationId=" + operationId +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

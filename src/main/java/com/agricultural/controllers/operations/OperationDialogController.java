@@ -2,27 +2,16 @@ package com.agricultural.controllers.operations;
 
 import com.agricultural.controllers.StartPageController;
 import com.agricultural.domains.dto.TechnologicalOperationDto;
-import com.agricultural.domains.main.TechnologicalOperation;
 import com.agricultural.service.OperationService;
 import com.agricultural.service.impl.OperationServiceImpl;
 import com.agricultural.utils.DialogManager;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.stage.Modality;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
-import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -41,80 +30,105 @@ public class OperationDialogController {
     private static StartPageController startPageController = new StartPageController();
 
     //use for updating of existing operation
-    private TechnologicalOperationDto operationDto;
+    private TechnologicalOperationDto operationNeedToEdit;
     //check is operation for updating
     private boolean isUpdate = false;
 
     @FXML
     private TextField operationField;
+//    private ObservableList<TechnologicalOperationDto> operations;
+
 
     public TechnologicalOperationDto getOperationDto() {
-        return operationDto;
+        return operationNeedToEdit;
     }
 
-    public void setOperationDto(TechnologicalOperationDto operationDto) {
-        if (Objects.isNull(operationDto)) {
-            this.operationDto = new TechnologicalOperationDto();
-            this.operationDto.setOperationName("");
+    public void setOperationDto(TechnologicalOperationDto operationDtoToEdit) {
+        if (Objects.isNull(operationDtoToEdit)) {
+            this.operationNeedToEdit = new TechnologicalOperationDto();
+            this.operationNeedToEdit.setOperationName("");
         }else {
-            this.operationDto = operationDto;
+            this.operationNeedToEdit = operationDtoToEdit;
             this.isUpdate = true;
         }
         //if we try to create new operation then text field will be empty
         //if edit -> field will be filled
-        operationField.setText(this.operationDto.getOperationName());
+        operationField.setText(this.operationNeedToEdit.getOperationName());
     }
 
-    public Scene getParentScene() {
-        return parentScene;
-    }
 
     public void setParentScene(Scene parentScene) {
         this.parentScene = parentScene;
     }
 
-
     /*
      * when click on Button to add new Operation
     */
     public void saveEditAction(ActionEvent actionEvent){
-        String newOperation = operationField.getText().trim();
 
-        if (newOperation.equals("")) {
+        String newOperationName = operationField.getText().trim();
+
+        if (newOperationName.equals("")) {
             return;
             //DialogManager.showError("Помилка при введені даних", "Заповніть текстове поле!");
         }
-        boolean isExistOperation = operationService.isExistOperation(newOperation);
+        boolean isExistOperation = operationService.isExistOperation(newOperationName);
+                //isExistOperation(newOperationName);
 
         if (isExistOperation) {
-            DialogManager.showError("Помилка при введені даних", "Операція " + newOperation + " вже існує!");
+            DialogManager.showError("Помилка при введені даних", "Операція " + newOperationName + " вже існує!");
             return;
         }
 
-        operationDto.setOperationName(newOperation);
         if(isUpdate){
             //then update in db
-            operationService.editOperation(operationDto);
+            //індекс операції в списку відповідає її serialNumber
+            //для оновлення даних в таблицы просто оновлюэмо дані в observableList
+            this.operationNeedToEdit.setOperationName(newOperationName);
+            //оновлюємо дані в базі даних
+            operationService.editOperation(operationNeedToEdit);
+
         }else {
-            operationService.createOperation(newOperation);
+            Long id = operationService.createOperation(newOperationName);
+            this.operationNeedToEdit.setOperationName(newOperationName);
+            this.operationNeedToEdit.setId(id);
         }
+
         closeOperationDialog(actionEvent);
     }
 
+//    private boolean isExistOperation(String newOperation) {
+//        // find how many operations have name newOperation
+//        long count = operations.stream().filter(element -> element.getOperationName().equals(newOperation)).count();
+//        //if count>0 -> operation exists
+//        return count>0?true:false;
+//    }
 
     /*
-   * close add operation dialog window
-   * */
+     * close add operation dialog window
+     * */
     public void closeOperationDialog(ActionEvent actionEvent) {
+        // close this dialog window
         Node node = (Node)actionEvent.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
 
-        //close operation window
-        Stage parentStage = (Stage) parentScene.getWindow();
-        parentStage.close();
+        Object source = actionEvent.getSource();
+        if(source instanceof Button){
+            Button cancelButton = (Button) source;
+            //if cancel button was clicked
+            if(cancelButton.getId().equals("cancelBtn")){
+                return;
+            }
+        }
 
-        startPageController.allTechnologicalOperations(new ActionEvent());
+        //close operation window
+//        Stage parentStage = (Stage) parentScene.getWindow();
+//        parentStage.close();
+//        //open operation window
+//        startPageController.allTechnologicalOperations(new ActionEvent());
 
     }
+
+
 }

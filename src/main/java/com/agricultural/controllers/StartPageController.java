@@ -85,6 +85,7 @@ public class StartPageController {
 
             allMachineStage.setMinHeight(450+ HEIGHT_CLEARANCE);
             allMachineStage.setMinWidth(550+ WIDTH_CLEARANCE);
+            allMachineStage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
 
             allMachineStage.show();
 

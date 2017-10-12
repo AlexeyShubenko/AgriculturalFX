@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface OperationsDAO {
 
-    void createOperation(String operationName);
+    Long createOperation(String operationName);
     void deleteOperation(TechnologicalOperation operation);
     void editOperation(TechnologicalOperation operation);
     List<TechnologicalOperation> getOperations();
