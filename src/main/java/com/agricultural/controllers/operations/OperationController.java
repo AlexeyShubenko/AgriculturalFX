@@ -2,6 +2,7 @@ package com.agricultural.controllers.operations;
 
 import com.agricultural.controllers.StartPageController;
 import com.agricultural.domains.dto.TechnologicalOperationDto;
+import com.agricultural.exceptions.InternalDBException;
 import com.agricultural.service.OperationService;
 import com.agricultural.service.impl.OperationServiceImpl;
 import com.agricultural.utils.DialogManager;
@@ -89,6 +90,10 @@ public class OperationController {
         createDialogWindow(actionEvent, ADD_OPERATIONS);
 
         TechnologicalOperationDto operationDto = operationDialogController.getOperationDto();
+        // силка нульова якщо зміни не вдалося виконати
+        if(Objects.isNull(operationDto)){
+            return;
+        }
         operationDto.setSerialNumber(operations.size()+1);
         operations.add(operationDto);
     }
@@ -101,14 +106,23 @@ public class OperationController {
         TechnologicalOperationDto operationDtoFromTable =
                 (TechnologicalOperationDto) operationsTableView.getSelectionModel().getSelectedItem();
         if (Objects.isNull(operationDtoFromTable)) {
-            DialogManager.showInfo("Wrong action!", "Для редагування треба вибрати поле в таблиці");
+            DialogManager.showInfo("Wrong action!", "Для редагування треба вибрати поле в таблиці!");
             return;
         }
         operationDialogController.setOperationDto(operationDtoFromTable);
         createDialogWindow(actionEvent, EDIT_OPERATIONS);
         TechnologicalOperationDto operationDtoToEdit = operationDialogController.getOperationDto();
-        //для оновлення таблиці треба змінити дані в таблкиці
-        operations.set(operationDtoToEdit.getSerialNumber()-1,operationDtoToEdit);
+        // силка нульова якщо зміни не вдалося виконати
+        if(Objects.isNull(operationDtoToEdit)){
+            return;
+        }
+        //якщо користувач ввів однакові дані
+        //перевіряється якщо силкі не вказують на один
+        //і той же об'єкт то виконуємо зміни в observableList
+        if(operationDtoFromTable!=operationDtoToEdit){
+            //для оновлення таблиці треба змінити дані в таблиці
+            operations.set(operationDtoToEdit.getSerialNumber()-1,operationDtoToEdit);
+        }
 
     }
 
@@ -122,16 +136,19 @@ public class OperationController {
             DialogManager.showInfo("Wrong action!", "Для видалення треба вибрати поле в таблиці");
             return;
         }
+        try {
+            operationService.deleteOperation(operationDto);
+        }catch (InternalDBException internalException){
+            DialogManager.showError("Помилка!", internalException.getMessage());
+            return;
+        }
 
         int num = operationDto.getSerialNumber();
         operations.remove(operationDto);
         for (int i = num; i < operations.size()-1; i++) {
             operations.get(i).setSerialNumber(i);
         }
-        operationService.deleteOperation(operationDto);
 
-        //close operation window
-//        closeAndOpenThisWindow(actionEvent);
 
     }
 

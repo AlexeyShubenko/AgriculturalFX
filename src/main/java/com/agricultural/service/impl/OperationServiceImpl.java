@@ -4,6 +4,7 @@ import com.agricultural.dao.operations.OperationDAOImpl;
 import com.agricultural.dao.operations.OperationsDAO;
 import com.agricultural.domains.dto.TechnologicalOperationDto;
 import com.agricultural.domains.main.TechnologicalOperation;
+import com.agricultural.exceptions.InternalDBException;
 import com.agricultural.service.OperationService;
 
 import java.util.ArrayList;
@@ -26,23 +27,21 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
-    public Long createOperation(String operationName) {
+    public Long createOperation(String operationName) throws InternalDBException {
         return operationsDAO.createOperation(operationName);
     }
 
     @Override
-    public void deleteOperation(TechnologicalOperationDto operationDto) {
+    public void deleteOperation(TechnologicalOperationDto operationDto) throws InternalDBException {
         TechnologicalOperation operation = new TechnologicalOperation.Builder()
                 .setOperationId(operationDto)
                 .setOperationName(operationDto)
                 .build();
-        System.out.println(operationDto.toString());
-        System.out.println(operation.toString());
         operationsDAO.deleteOperation(operation);
     }
 
     @Override
-    public void editOperation(TechnologicalOperationDto operationDto) {
+    public void editOperation(TechnologicalOperationDto operationDto) throws InternalDBException {
         TechnologicalOperation operation = new TechnologicalOperation.Builder()
                 .setOperationId(operationDto)
                 .setOperationName(operationDto)
@@ -63,8 +62,7 @@ public class OperationServiceImpl implements OperationService {
                     .build();
             operationDto.setSerialNumber(i++);
             allOperationsDto.add(operationDto);
-            System.out.println(i + ": " + operation.toString());
-//            allOperationsDto.sort((o1, o2) -> (int)(o1.getId()-o2.getId()));
+            allOperationsDto.sort((o1, o2) -> (int)(o1.getId()-o2.getId()));
         }
 
 //        for (TechnologicalOperationDto op:allOperationsDto) {

@@ -2,6 +2,7 @@ package com.agricultural.dao.operations;
 
 import com.agricultural.domains.dto.TechnologicalOperationDto;
 import com.agricultural.domains.main.TechnologicalOperation;
+import com.agricultural.exceptions.InternalDBException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +12,9 @@ import java.util.List;
  */
 public interface OperationsDAO {
 
-    Long createOperation(String operationName);
-    void deleteOperation(TechnologicalOperation operation);
-    void editOperation(TechnologicalOperation operation);
+    Long createOperation(String operationName) throws InternalDBException;
+    void deleteOperation(TechnologicalOperation operation) throws InternalDBException;
+    void editOperation(TechnologicalOperation operation) throws InternalDBException;
     List<TechnologicalOperation> getOperations();
     String[] getAllOperationsName();
     TechnologicalOperation getOperationByName(String operationName);

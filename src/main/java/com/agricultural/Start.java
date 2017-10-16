@@ -39,8 +39,8 @@ public class Start extends Application {
     }
 
     private static void startAcceleration() {
-        Thread thread = new Thread(new Util());
-        thread.start();
+//        Thread thread = new Thread(new Util());
+//        thread.start();
         //change!!!!!!!!!!
     }
 

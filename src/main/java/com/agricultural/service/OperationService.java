@@ -2,6 +2,8 @@ package com.agricultural.service;
 
 import com.agricultural.domains.dto.TechnologicalOperationDto;
 import com.agricultural.domains.main.TechnologicalOperation;
+import com.agricultural.exceptions.InternalDBException;
+
 import java.util.List;
 
 /**
@@ -9,9 +11,9 @@ import java.util.List;
  */
 public interface OperationService {
 
-    Long createOperation(String operationName);
-    void deleteOperation(TechnologicalOperationDto operationDto);
-    void editOperation(TechnologicalOperationDto operationDto);
+    Long createOperation(String operationName) throws InternalDBException;
+    void deleteOperation(TechnologicalOperationDto operationDto) throws InternalDBException;
+    void editOperation(TechnologicalOperationDto operationDto) throws InternalDBException;
     List<TechnologicalOperationDto> getOperations();
     String[] getAllOperationsName();
     TechnologicalOperation getOperationByName(String operationName);

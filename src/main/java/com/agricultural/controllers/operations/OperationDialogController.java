@@ -2,6 +2,8 @@ package com.agricultural.controllers.operations;
 
 import com.agricultural.controllers.StartPageController;
 import com.agricultural.domains.dto.TechnologicalOperationDto;
+import com.agricultural.exceptions.AddEditException;
+import com.agricultural.exceptions.InternalDBException;
 import com.agricultural.service.OperationService;
 import com.agricultural.service.impl.OperationServiceImpl;
 import com.agricultural.utils.DialogManager;
@@ -86,12 +88,24 @@ public class OperationDialogController {
             //для оновлення даних в таблицы просто оновлюэмо дані в observableList
             this.operationNeedToEdit.setOperationName(newOperationName);
             //оновлюємо дані в базі даних
-            operationService.editOperation(operationNeedToEdit);
+            try{
+                operationService.editOperation(operationNeedToEdit);
+            }catch (InternalDBException internalException){
+                DialogManager.showError("Помилка!", internalException.getMessage());
+                // зануляємо силку, це буде значити що не вдалося виконати зміни в бд
+                this.operationNeedToEdit = null;
+            }
 
         }else {
-            Long id = operationService.createOperation(newOperationName);
-            this.operationNeedToEdit.setOperationName(newOperationName);
-            this.operationNeedToEdit.setId(id);
+            try{
+                Long id = operationService.createOperation(newOperationName);
+                this.operationNeedToEdit.setOperationName(newOperationName);
+                this.operationNeedToEdit.setId(id);
+            }catch (InternalDBException internalException){
+                DialogManager.showError("Помилка!", internalException.getMessage());
+                // зануляємо силку, це буде значити що не вдалося виконати зміни в бд
+                this.operationNeedToEdit = null;
+            }
         }
 
         closeOperationDialog(actionEvent);

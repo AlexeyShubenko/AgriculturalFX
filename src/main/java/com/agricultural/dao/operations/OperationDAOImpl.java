@@ -3,6 +3,7 @@ package com.agricultural.dao.operations;
 import com.agricultural.dao.HibernateUtil;
 import com.agricultural.domains.dto.TechnologicalOperationDto;
 import com.agricultural.domains.main.TechnologicalOperation;
+import com.agricultural.exceptions.InternalDBException;
 import org.hibernate.query.Query;
 
 import javax.persistence.EntityManager;
@@ -27,7 +28,7 @@ public class OperationDAOImpl implements OperationsDAO {
 
     private EntityManager session;
 
-    public Long createOperation(String operationName) {
+    public Long createOperation(String operationName) throws InternalDBException {
         session = HibernateUtil.getSessionFactory().createEntityManager();
         EntityTransaction tx = session.getTransaction();
         TechnologicalOperation operation = new TechnologicalOperation();
@@ -39,16 +40,17 @@ public class OperationDAOImpl implements OperationsDAO {
             id = operation.getOperationId();
             tx.commit();
         }catch(Exception e){
-            if (tx != null) {
+            if (tx != null){
                 tx.rollback();
             }
+            throw new InternalDBException("Операція не була добавлена! Помилка бази даних!");
         }finally {
             session.close();
         }
         return id;
     }
 
-    public void deleteOperation(TechnologicalOperation operation) {
+    public void deleteOperation(TechnologicalOperation operation) throws InternalDBException {
         session = HibernateUtil.getSessionFactory().createEntityManager();
         EntityTransaction tx = session.getTransaction();
         try{
@@ -60,23 +62,18 @@ public class OperationDAOImpl implements OperationsDAO {
             if (tx != null) {
                 tx.rollback();
             }
+            throw new InternalDBException("Операція не була видалена! Помилка бази даних!");
         }finally {
             session.close();
         }
 
     }
 
-    public void editOperation(TechnologicalOperation operation) {
+    public void editOperation(TechnologicalOperation operation) throws InternalDBException {
         session = HibernateUtil.getSessionFactory().createEntityManager();
         EntityTransaction tx = session.getTransaction();
         try{
             tx.begin();
-//            TechnologicalOperation oldOperation =
-//                    (TechnologicalOperation) session.createQuery("from TechnologicalOperation where operationId=:id")
-//                    .setParameter("id",operation.getOperationId())
-////                    .setParameter("name",operation.getName())
-//                    .getSingleResult();
-//            oldOperation.setName(operation.getName());
             session.createQuery("update TechnologicalOperation set name=:name where operationId=:id")
                     .setParameter("id",operation.getOperationId())
                     .setParameter("name",operation.getName()).executeUpdate();
@@ -85,6 +82,7 @@ public class OperationDAOImpl implements OperationsDAO {
             if (tx != null) {
                 tx.rollback();
             }
+            throw new InternalDBException("Операція не була змінена! Помилка бази даних!");
         }finally {
             session.close();
         }
