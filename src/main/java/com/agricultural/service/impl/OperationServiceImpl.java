@@ -65,9 +65,6 @@ public class OperationServiceImpl implements OperationService {
             allOperationsDto.sort((o1, o2) -> (int)(o1.getId()-o2.getId()));
         }
 
-//        for (TechnologicalOperationDto op:allOperationsDto) {
-//            System.out.println(op.toString());
-//        }
 
         return allOperationsDto;
     }

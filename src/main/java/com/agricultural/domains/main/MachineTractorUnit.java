@@ -20,7 +20,7 @@ public class MachineTractorUnit implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long machine_id;
+    private Long machineId;
     @Column(name = "machine")
     private String name;
 

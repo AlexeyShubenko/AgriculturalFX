@@ -1,12 +1,10 @@
 package com.agricultural.controllers.operations;
 
-import com.agricultural.controllers.StartPageController;
 import com.agricultural.domains.dto.TechnologicalOperationDto;
 import com.agricultural.exceptions.InternalDBException;
 import com.agricultural.service.OperationService;
 import com.agricultural.service.impl.OperationServiceImpl;
 import com.agricultural.utils.DialogManager;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -76,6 +74,8 @@ public class OperationController {
             e.printStackTrace();
         }
 
+        operations.sort((o1, o2) -> o1.getSerialNumber()-o2.getSerialNumber());
+
     }
 
     private void countUpdate() {
@@ -119,10 +119,10 @@ public class OperationController {
         //якщо користувач ввів однакові дані
         //перевіряється якщо силкі не вказують на один
         //і той же об'єкт то виконуємо зміни в observableList
-        if(operationDtoFromTable!=operationDtoToEdit){
+//        if(!operationDtoFromTable.getOperationName().equals(operationDtoToEdit.getOperationName())){
             //для оновлення таблиці треба змінити дані в таблиці
             operations.set(operationDtoToEdit.getSerialNumber()-1,operationDtoToEdit);
-        }
+//        }
 
     }
 
