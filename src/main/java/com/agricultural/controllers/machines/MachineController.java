@@ -86,6 +86,76 @@ public class MachineController {
         machineCountLabel.setText("Кількість записів в таблиці: " + machines.size());
     }
 
+    /*
+    * when click on add new machine Button
+    * */
+    public void openAddMachineWindow(ActionEvent actionEvent) {
+        //null - because we want to create new operation
+        machineDialogController.setMachineDto(null);
+        createDialogWindow(actionEvent, ADD_MACHINES);
+
+        MachineDto machineDto = machineDialogController.getMachineDto();
+        // силка нульова якщо зміни не вдалося виконати
+        if(Objects.isNull(machineDto)){
+            return;
+        }
+        machineDto.setSerialNumber(machines.size()+1);
+        machines.add(machineDto);
+    }
+
+    /*
+    * called when want to edit exist operation
+    * */
+    public void editMachineOpenWindow(ActionEvent actionEvent) {
+        //take exist operation from table for further updating
+        MachineDto machineDtoFromTable =
+                (MachineDto) machinesTableView.getSelectionModel().getSelectedItem();
+        if (Objects.isNull(machineDtoFromTable)) {
+            DialogManager.showInfo("Wrong action!", "Для редагування треба вибрати поле в таблиці!");
+            return;
+        }
+       machineDialogController.setMachineDto(machineDtoFromTable);
+        createDialogWindow(actionEvent, EDIT_MACHINES);
+        MachineDto machineDto = machineDialogController.getMachineDto();
+        // силка нульова якщо зміни не вдалося виконати
+        if(Objects.isNull(machineDto)){
+            return;
+        }
+        //якщо користувач ввів однакові дані
+        //перевіряється якщо силкі не вказують на один
+        //і той же об'єкт то виконуємо зміни в observableList
+        //для оновлення таблиці треба змінити дані в таблиці
+        machines.set((machineDto.getSerialNumber()-1),machineDto);
+
+    }
+
+    /*
+    * called when want to delete exist operation
+    * */
+    public void deleteMachine(ActionEvent actionEvent) {
+        MachineDto machineDto =
+                (MachineDto) machinesTableView.getSelectionModel().getSelectedItem();
+        if (Objects.isNull(machineDto)) {
+            DialogManager.showInfo("Wrong action!", "Для видалення треба вибрати поле в таблиці");
+            return;
+        }
+        try {
+            machineService.deleteMachine(machineDto);
+        }catch (InternalDBException internalException){
+            DialogManager.showError("Помилка!", internalException.getMessage());
+            return;
+        }
+
+        int num = machineDto.getSerialNumber();
+        machines.remove(machineDto);
+        for (int i = num; i < machines.size()-1; i++) {
+            machines.get(i).setSerialNumber(i);
+        }
+
+
+    }
+
+
     private void createDialogWindow(ActionEvent actionEvent, String title) {
 
         if (dialogMachineWindow == null) {

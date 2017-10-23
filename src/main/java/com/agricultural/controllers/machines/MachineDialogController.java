@@ -69,14 +69,14 @@ public class MachineDialogController {
 
         String newMachineName = machineField.getText().trim();
 
-        if (machineField.equals("")) {
+        if (newMachineName.equals("")) {
             return;
             //DialogManager.showError("Помилка при введені даних", "Заповніть текстове поле!");
         }
-        boolean isExistOperation = machineService.isExistMachine(newMachineName);
+        boolean isExistMachine = machineService.isExistMachine(newMachineName);
                 //isExistOperation(newOperationName);
 
-        if (isExistOperation) {
+        if (isExistMachine) {
             DialogManager.showError("Помилка при введені даних", "Машино тракторний агрегат " + newMachineName + " вже існує!");
             return;
         }

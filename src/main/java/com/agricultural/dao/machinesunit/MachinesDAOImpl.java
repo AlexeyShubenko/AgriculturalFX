@@ -53,14 +53,14 @@ public class MachinesDAOImpl implements MachinesDAO {
         EntityTransaction tx = session.getTransaction();
         try{
             tx.begin();
-            session.createQuery("delete MachineTractorUnit where machine_id=:id")
+            session.createQuery("delete MachineTractorUnit where machineId=:id")
                     .setParameter("id",machine.getMachineId()).executeUpdate();
             tx.commit();
         }catch(Exception e){
             if (tx != null) {
                 tx.rollback();
             }
-            throw new InternalDBException("Машино тракторний агрегат не був добавлений! Помилка бази даних!");
+            throw new InternalDBException("Видалення не виконана! Помилка бази даних!");
         }finally {
             session.close();
         }
@@ -77,7 +77,7 @@ public class MachinesDAOImpl implements MachinesDAO {
             if (tx != null) {
                 tx.rollback();
             }
-            throw new InternalDBException("Машино тракторний агрегат не був добавлений! Помилка бази даних!");
+            throw new InternalDBException("Редагування не виконано! Помилка бази даних!");
         }finally {
             session.close();
         }
