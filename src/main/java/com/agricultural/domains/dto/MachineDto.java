@@ -9,7 +9,7 @@ public class MachineDto {
 
     private Long id;
     private String machineName;
-    private Long serialNumber;
+    private Integer serialNumber;
 
     public MachineDto(){}
 
@@ -51,11 +51,11 @@ public class MachineDto {
         this.machineName = machineName;
     }
 
-    public Long getSerialNumber() {
+    public Integer getSerialNumber() {
         return serialNumber;
     }
 
-    public void setSerialNumber(Long serialNumber) {
+    public void setSerialNumber(Integer serialNumber) {
         this.serialNumber = serialNumber;
     }
 }

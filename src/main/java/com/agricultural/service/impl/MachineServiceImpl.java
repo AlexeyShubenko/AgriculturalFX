@@ -5,6 +5,7 @@ import com.agricultural.dao.machinesunit.MachinesDAOImpl;
 import com.agricultural.domains.dto.MachineDto;
 import com.agricultural.domains.dto.TechnologicalOperationDto;
 import com.agricultural.domains.main.MachineTractorUnit;
+import com.agricultural.exceptions.InternalDBException;
 import com.agricultural.service.MachineService;
 
 import java.util.ArrayList;
@@ -27,17 +28,25 @@ public class MachineServiceImpl implements MachineService {
     }
 
     @Override
-    public void createMachine(String machineName) {
-        machinesDAO.createMachine(machineName);
+    public Long createMachine(String machineName) throws InternalDBException {
+       return machinesDAO.createMachine(machineName);
     }
 
     @Override
-    public void deleteMachine(MachineTractorUnit machineTractorUnit) {
+    public void deleteMachine(MachineDto machineDto) throws InternalDBException {
+        MachineTractorUnit machineTractorUnit = new MachineTractorUnit.Builder()
+                .setId(machineDto)
+                .setMachineName(machineDto)
+                .build();
         machinesDAO.deleteMachine(machineTractorUnit);
     }
 
     @Override
-    public void editMachine(MachineTractorUnit machineTractorUnit) {
+    public void editMachine(MachineDto machineDto) throws InternalDBException {
+        MachineTractorUnit machineTractorUnit = new MachineTractorUnit.Builder()
+                .setId(machineDto)
+                .setMachineName(machineDto)
+                .build();
         machinesDAO.editMachine(machineTractorUnit);
     }
 
@@ -54,7 +63,7 @@ public class MachineServiceImpl implements MachineService {
 
         int i = 1;
         for(MachineDto machineDto: allMachinesDto){
-            machineDto.setSerialNumber((long)i++);
+            machineDto.setSerialNumber(i++);
         }
         return allMachinesDto;
     }
@@ -65,7 +74,7 @@ public class MachineServiceImpl implements MachineService {
     }
 
     @Override
-    public MachineTractorUnit getMachineByName(String machineName) {
+    public MachineTractorUnit getMachineByName(String machineName){
         return machinesDAO.getMachineByName(machineName);
     }
 

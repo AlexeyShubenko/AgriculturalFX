@@ -33,7 +33,7 @@ public class OperationDAOImpl implements OperationsDAO {
         EntityTransaction tx = session.getTransaction();
         TechnologicalOperation operation = new TechnologicalOperation();
         operation.setName(operationName);
-        Long id = null;
+        Long id;
         try{
             tx.begin();
             session.persist(operation);

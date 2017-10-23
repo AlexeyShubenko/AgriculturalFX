@@ -20,6 +20,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.Objects;
 
 /**
@@ -67,14 +68,14 @@ public class OperationController {
         operationsTableView.setItems(operations);
 
         try {
-            fxmlLoader.setLocation(getClass().getResource("/views/addOperationDialog.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/views/operations/addOperationDialog.fxml"));
             fxmlParent = fxmlLoader.load();
             operationDialogController = fxmlLoader.getController();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        operations.sort((o1, o2) -> o1.getSerialNumber()-o2.getSerialNumber());
+        operations.sort(Comparator.comparingInt(TechnologicalOperationDto::getSerialNumber));
 
     }
 
@@ -185,7 +186,7 @@ public class OperationController {
         final int WIDTH_CLEARANCE = 20;
         final int HEIGHT_CLEARANCE = 50;
         try {
-            Parent parent = FXMLLoader.load(getClass().getResource("/views/operations.fxml"));
+            Parent parent = FXMLLoader.load(getClass().getResource("/views/operations/operations.fxml"));
 
             Scene operationsScene = new Scene(parent);
 

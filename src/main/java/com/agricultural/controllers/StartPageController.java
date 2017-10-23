@@ -1,12 +1,10 @@
 package com.agricultural.controllers;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -50,7 +48,7 @@ public class StartPageController {
 
         try {
             Stage allOperationsStage = new Stage();
-            Parent parent = FXMLLoader.load(getClass().getResource("/views/operations.fxml"));
+            Parent parent = FXMLLoader.load(getClass().getResource("/views/operations/operations.fxml"));
 
             Scene operationsScene = new Scene(parent);
 
@@ -77,7 +75,7 @@ public class StartPageController {
 
         try {
             Stage allMachineStage = new Stage();
-            Parent parent = FXMLLoader.load(getClass().getResource("/views/machines.fxml"));
+            Parent parent = FXMLLoader.load(getClass().getResource("/views/machines/machines.fxml"));
             Scene machinesScene = new Scene(parent);
 
             allMachineStage.setScene(machinesScene);

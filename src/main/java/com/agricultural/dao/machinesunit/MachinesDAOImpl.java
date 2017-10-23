@@ -2,6 +2,7 @@ package com.agricultural.dao.machinesunit;
 
 import com.agricultural.dao.HibernateUtil;
 import com.agricultural.domains.main.MachineTractorUnit;
+import com.agricultural.exceptions.InternalDBException;
 import org.hibernate.query.Query;
 
 import javax.persistence.EntityManager;
@@ -25,42 +26,47 @@ public class MachinesDAOImpl implements MachinesDAO {
 
     private EntityManager session;
 
-    public void createMachine(String machineName) {
+    public Long createMachine(String machineName) throws InternalDBException {
         session = HibernateUtil.getSessionFactory().createEntityManager();
         EntityTransaction tx = session.getTransaction();
         MachineTractorUnit machine = new MachineTractorUnit();
         machine.setName(machineName);
+        Long id;
         try{
             tx.begin();
             session.persist(machine);
+            id = machine.getMachineId();
             tx.commit();
         }catch(Exception e){
             if (tx != null) {
                 tx.rollback();
             }
+            throw new InternalDBException("Машино тракторний агрегат не був добавлений! Помилка бази даних!");
         }finally {
             session.close();
         }
+        return id;
     }
 
-    public void deleteMachine(MachineTractorUnit machine) {
+    public void deleteMachine(MachineTractorUnit machine) throws InternalDBException {
         session = HibernateUtil.getSessionFactory().createEntityManager();
         EntityTransaction tx = session.getTransaction();
         try{
             tx.begin();
             session.createQuery("delete MachineTractorUnit where machine_id=:id")
-                    .setParameter("id",machine.getMachine_id()).executeUpdate();
+                    .setParameter("id",machine.getMachineId()).executeUpdate();
             tx.commit();
         }catch(Exception e){
             if (tx != null) {
                 tx.rollback();
             }
+            throw new InternalDBException("Машино тракторний агрегат не був добавлений! Помилка бази даних!");
         }finally {
             session.close();
         }
     }
 
-    public void editMachine(MachineTractorUnit tractor) {
+    public void editMachine(MachineTractorUnit tractor) throws InternalDBException {
         session = HibernateUtil.getSessionFactory().createEntityManager();
         EntityTransaction tx = session.getTransaction();
         try{
@@ -71,6 +77,7 @@ public class MachinesDAOImpl implements MachinesDAO {
             if (tx != null) {
                 tx.rollback();
             }
+            throw new InternalDBException("Машино тракторний агрегат не був добавлений! Помилка бази даних!");
         }finally {
             session.close();
         }
@@ -111,7 +118,8 @@ public class MachinesDAOImpl implements MachinesDAO {
         MachineTractorUnit machine = null;
         try{
             tx.begin();
-            Query<MachineTractorUnit> query = (Query<MachineTractorUnit>) session.createQuery("from MachineTractorUnit where name=:name");
+            Query<MachineTractorUnit> query =
+                    (Query<MachineTractorUnit>) session.createQuery("from MachineTractorUnit where name=:name");
             query.setParameter("name",machineName);
             machine =  query.getSingleResult();
             tx.commit();

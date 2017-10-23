@@ -1,6 +1,7 @@
 package com.agricultural.dao.machinesunit;
 
 import com.agricultural.domains.main.MachineTractorUnit;
+import com.agricultural.exceptions.InternalDBException;
 
 import java.util.ArrayList;
 
@@ -9,9 +10,9 @@ import java.util.ArrayList;
  */
 public interface MachinesDAO {
 
-    void createMachine(String machineName);
-    void deleteMachine(MachineTractorUnit machineTractorUnit);
-    void editMachine(MachineTractorUnit tractor);
+    Long createMachine(String machineName) throws InternalDBException;
+    void deleteMachine(MachineTractorUnit machineTractorUnit) throws InternalDBException;
+    void editMachine(MachineTractorUnit tractor) throws InternalDBException;
     ArrayList<MachineTractorUnit> getMachines();
     String[] getAllMachinesName();
     MachineTractorUnit getMachineByName(String machineName);

@@ -1,5 +1,7 @@
 package com.agricultural.domains.main;
 
+import com.agricultural.domains.dto.MachineDto;
+import com.agricultural.domains.dto.TechnologicalOperationDto;
 import com.agricultural.domains.gectarniyvirobitok.DriverDataHectare;
 import com.agricultural.domains.hoursvirobitok.DriverDataHour;
 import lombok.Data;
@@ -35,5 +37,27 @@ public class MachineTractorUnit implements Serializable {
     public MachineTractorUnit(String name){
         this.name = name;
     }
+
+    public static class Builder{
+
+        MachineTractorUnit machineTractorUnit = new MachineTractorUnit();
+
+        public Builder setId(MachineDto machineDto){
+            machineTractorUnit.setMachineId(machineDto.getId());
+            return this;
+        }
+        public Builder setMachineName(MachineDto machineDto){
+            machineTractorUnit.setName(machineDto.getMachineName());
+            return this;
+        }
+
+
+
+        public MachineTractorUnit build(){
+            return machineTractorUnit;
+        }
+
+    }
+
 
 }

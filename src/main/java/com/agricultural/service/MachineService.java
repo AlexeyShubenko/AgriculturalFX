@@ -2,6 +2,7 @@ package com.agricultural.service;
 
 import com.agricultural.domains.dto.MachineDto;
 import com.agricultural.domains.main.MachineTractorUnit;
+import com.agricultural.exceptions.InternalDBException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +12,9 @@ import java.util.List;
  */
 public interface MachineService {
 
-    void createMachine(String machineName);
-    void deleteMachine(MachineTractorUnit machineTractorUnit);
-    void editMachine(MachineTractorUnit tractor);
+    Long createMachine(String machineName) throws InternalDBException;
+    void deleteMachine(MachineDto machineDto) throws InternalDBException;
+    void editMachine(MachineDto machineDto) throws InternalDBException;
     List<MachineDto> getMachines();
     String[] getAllMachinesName();
     MachineTractorUnit getMachineByName(String machineName);

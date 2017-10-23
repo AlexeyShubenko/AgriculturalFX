@@ -1,10 +1,10 @@
 package com.agricultural.controllers.machines;
 
 import com.agricultural.controllers.StartPageController;
-import com.agricultural.domains.dto.TechnologicalOperationDto;
+import com.agricultural.domains.dto.MachineDto;
 import com.agricultural.exceptions.InternalDBException;
-import com.agricultural.service.OperationService;
-import com.agricultural.service.impl.OperationServiceImpl;
+import com.agricultural.service.MachineService;
+import com.agricultural.service.impl.MachineServiceImpl;
 import com.agricultural.utils.DialogManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,7 +24,7 @@ import java.util.Objects;
 * */
 public class MachineDialogController {
 
-    private OperationService operationService = OperationServiceImpl.getInstance();
+    private MachineService machineService = MachineServiceImpl.getInstance();
 
     //use for updating parent window after operation save or update
     private Scene parentScene;
@@ -32,30 +32,29 @@ public class MachineDialogController {
     private static StartPageController startPageController = new StartPageController();
 
     //use for updating of existing operation
-    private TechnologicalOperationDto operationNeedToEdit;
+    private MachineDto machineNeedToEdit;
     //check is operation for updating
     private boolean isUpdate = false;
 
     @FXML
-    private TextField operationField;
-//    private ObservableList<TechnologicalOperationDto> operations;
+    private TextField machineField;
 
 
-    public TechnologicalOperationDto getOperationDto() {
-        return operationNeedToEdit;
+    public MachineDto getMachineDto() {
+        return machineNeedToEdit;
     }
 
-    public void setOperationDto(TechnologicalOperationDto operationDtoToEdit) {
-        if (Objects.isNull(operationDtoToEdit)) {
-            this.operationNeedToEdit = new TechnologicalOperationDto();
-            this.operationNeedToEdit.setOperationName("");
+    public void setMachineDto(MachineDto machineDtoToEdit) {
+        if (Objects.isNull(machineDtoToEdit)) {
+            this.machineNeedToEdit = new MachineDto();
+            this.machineNeedToEdit.setMachineName("");
         }else {
-            this.operationNeedToEdit = operationDtoToEdit;
+            this.machineNeedToEdit = machineDtoToEdit;
             this.isUpdate = true;
         }
         //if we try to create new operation then text field will be empty
         //if edit -> field will be filled
-        operationField.setText(this.operationNeedToEdit.getOperationName());
+        machineField.setText(this.machineNeedToEdit.getMachineName());
     }
 
 
@@ -68,17 +67,17 @@ public class MachineDialogController {
     */
     public void saveEditAction(ActionEvent actionEvent){
 
-        String newOperationName = operationField.getText().trim();
+        String newMachineName = machineField.getText().trim();
 
-        if (newOperationName.equals("")) {
+        if (machineField.equals("")) {
             return;
             //DialogManager.showError("Помилка при введені даних", "Заповніть текстове поле!");
         }
-        boolean isExistOperation = operationService.isExistOperation(newOperationName);
+        boolean isExistOperation = machineService.isExistMachine(newMachineName);
                 //isExistOperation(newOperationName);
 
         if (isExistOperation) {
-            DialogManager.showError("Помилка при введені даних", "Операція " + newOperationName + " вже існує!");
+            DialogManager.showError("Помилка при введені даних", "Машино тракторний агрегат " + newMachineName + " вже існує!");
             return;
         }
 
@@ -86,37 +85,30 @@ public class MachineDialogController {
             //then update in db
             //індекс операції в списку відповідає її serialNumber
             //для оновлення даних в таблицы просто оновлюэмо дані в observableList
-            this.operationNeedToEdit.setOperationName(newOperationName);
+            this.machineNeedToEdit.setMachineName(newMachineName);
             //оновлюємо дані в базі даних
             try{
-                operationService.editOperation(operationNeedToEdit);
+                machineService.editMachine(machineNeedToEdit);
             }catch (InternalDBException internalException){
                 DialogManager.showError("Помилка!", internalException.getMessage());
                 // зануляємо силку, це буде значити що не вдалося виконати зміни в бд
-                this.operationNeedToEdit = null;
+                this.machineNeedToEdit = null;
             }
 
         }else {
             try{
-                Long id = operationService.createOperation(newOperationName);
-                this.operationNeedToEdit.setOperationName(newOperationName);
-                this.operationNeedToEdit.setId(id);
+                Long id = machineService.createMachine(newMachineName);
+                this.machineNeedToEdit.setMachineName(newMachineName);
+                this.machineNeedToEdit.setId(id);
             }catch (InternalDBException internalException){
                 DialogManager.showError("Помилка!", internalException.getMessage());
                 // зануляємо силку, це буде значити що не вдалося виконати зміни в бд
-                this.operationNeedToEdit = null;
+                this.machineNeedToEdit = null;
             }
         }
 
         closeOperationDialog(actionEvent);
     }
-
-//    private boolean isExistOperation(String newOperation) {
-//        // find how many operations have name newOperation
-//        long count = operations.stream().filter(element -> element.getOperationName().equals(newOperation)).count();
-//        //if count>0 -> operation exists
-//        return count>0?true:false;
-//    }
 
     /*
      * close add operation dialog window
@@ -135,12 +127,6 @@ public class MachineDialogController {
                 return;
             }
         }
-
-        //close operation window
-//        Stage parentStage = (Stage) parentScene.getWindow();
-//        parentStage.close();
-//        //open operation window
-//        startPageController.allTechnologicalOperations(new ActionEvent());
 
     }
 

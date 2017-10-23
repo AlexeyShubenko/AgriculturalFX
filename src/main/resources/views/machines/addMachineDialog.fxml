@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="424.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.agricultural.controllers.machines.MachineDialogController">
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="47.0" prefWidth="400.0">
+               <children>
+                  <Label prefHeight="21.0" prefWidth="207.0" text="Машино тракторний агрегат">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="machineField" prefHeight="31.0" prefWidth="155.0">
+                     <HBox.margin>
+                        <Insets bottom="10.0" right="10.0" top="20.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="saveMachineBtn" defaultButton="true" mnemonicParsing="false" onAction="#saveEditAction" prefHeight="31.0" prefWidth="89.0" text="Ок">
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="80.0" right="50.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="cancelMachineBtn" cancelButton="true" mnemonicParsing="false" onAction="#closeOperationDialog" prefHeight="31.0" prefWidth="90.0" text="Cancel">
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="40.0" right="20.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

@@ -43,7 +43,7 @@
                   <TableView fx:id="machinesTableView" prefHeight="250.0" prefWidth="410.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="columnSerialNumberMach" maxWidth="2000.0" prefWidth="75.0" text="№" />
-                      <TableColumn fx:id="columnOperationNameMach" prefWidth="75.0" text="Машино тракторний агрегат" />
+                      <TableColumn fx:id="columnMachineNameMach" prefWidth="75.0" text="Машино тракторний агрегат" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
