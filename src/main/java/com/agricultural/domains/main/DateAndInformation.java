@@ -35,6 +35,6 @@ public class DateAndInformation {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "empl_id")
-    private TractorDriver driver;
+    private Employee driver;
 
 }

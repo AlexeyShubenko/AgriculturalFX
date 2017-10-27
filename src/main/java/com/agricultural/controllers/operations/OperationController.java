@@ -92,9 +92,12 @@ public class OperationController {
 
         TechnologicalOperationDto operationDto = operationDialogController.getOperationDto();
         // силка нульова якщо зміни не вдалося виконати
-        if(Objects.isNull(operationDto)){
+        if(operationDto.getOperationName().equals("")){
             return;
         }
+//        if(Objects.isNull(operationDto)){
+//            return;
+//        }
         operationDto.setSerialNumber(operations.size()+1);
         operations.add(operationDto);
     }

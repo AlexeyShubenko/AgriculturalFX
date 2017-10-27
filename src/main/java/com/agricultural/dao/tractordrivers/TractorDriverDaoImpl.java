@@ -6,7 +6,7 @@ import com.agricultural.domains.gectarniyvirobitok.HectareTable;
 import com.agricultural.domains.hoursvirobitok.DriverDataHour;
 import com.agricultural.domains.hoursvirobitok.HourTable;
 import com.agricultural.domains.main.DateAndInformation;
-import com.agricultural.domains.main.TractorDriver;
+import com.agricultural.domains.main.Employee;
 import com.agricultural.service.DetailInformationService;
 import com.agricultural.service.InformationHectareService;
 import com.agricultural.service.InformationHourService;
@@ -41,12 +41,12 @@ public class TractorDriverDaoImpl implements TractorDriverDao {
     private InformationHourService infoHourService = InformationHourServiceImpl.getInstance();
 
     @Override
-    public void createOrUpdateTractorDriver(TractorDriver tractorDriver) {
+    public void createOrUpdateTractorDriver(Employee employee) {
         session = HibernateUtil.getSessionFactory().createEntityManager();
         EntityTransaction tx = session.getTransaction();
         try{
             tx.begin();
-            session.merge(tractorDriver);
+            session.merge(employee);
             tx.commit();
         }catch(Exception e){
             if (tx != null) {
@@ -58,12 +58,12 @@ public class TractorDriverDaoImpl implements TractorDriverDao {
     }
 
     @Override
-    public void deleteTractorDriver(TractorDriver driver) {
+    public void deleteTractorDriver(Employee driver) {
         session = HibernateUtil.getSessionFactory().createEntityManager();
         EntityTransaction tx = session.getTransaction();
         System.out.println("in delete method");
 
-        List<DateAndInformation> dateAndInformation = infoHectareService.getListDateAndAllInformationByDriverId(driver.getDriver_id());
+        List<DateAndInformation> dateAndInformation = infoHectareService.getListDateAndAllInformationByDriverId(driver.getId());
         for(DateAndInformation d: dateAndInformation) {
             infoHectareService.deleteDateAndInformation(d.getDate_id());
         }
@@ -102,7 +102,7 @@ public class TractorDriverDaoImpl implements TractorDriverDao {
         try{
             tx.begin();
 
-            session.createQuery("delete TractorDriver  where id=:id").setParameter("id",driver.getDriver_id()).executeUpdate();
+            session.createQuery("delete Employee  where id=:id").setParameter("id",driver.getId()).executeUpdate();
 
 
             tx.commit();
@@ -116,15 +116,21 @@ public class TractorDriverDaoImpl implements TractorDriverDao {
     }
 
     @Override
-    public void editTractorDriver(TractorDriver driver) {
+    public void editTractorDriver(Employee driver) {
         session = HibernateUtil.getSessionFactory().createEntityManager();
         EntityTransaction tx = session.getTransaction();
         try{
             tx.begin();
 
-            session.createQuery("update TractorDriver empl set empl.name=:name, empl.position=:position, empl.wageRate=:wageRate " +
-                    " where  empl.driver_id=:id").setParameter("name",driver.getName()).setParameter("position",driver.getPosition())
-                    .setParameter("wageRate",driver.getWageRate()).setParameter("id",driver.getDriver_id()).executeUpdate();
+            session.createQuery("update Employee empl set empl.name=:name, " +
+                    "empl.position=:position, " +
+                    "empl.wageRate=:wageRate " +
+                    " where  empl.id=:id")
+                    .setParameter("name",driver.getName())
+                    .setParameter("position",driver.getPosition())
+                    .setParameter("wageRate",driver.getWageRate())
+                    .setParameter("id",driver.getId())
+                    .executeUpdate();
 
             tx.commit();
         }catch(Exception e){
@@ -137,14 +143,13 @@ public class TractorDriverDaoImpl implements TractorDriverDao {
     }
 
     @Override
-    public ArrayList<TractorDriver> getTractorDrivers() {
+    public List<Employee> getTractorDrivers() {
         session = HibernateUtil.getSessionFactory().createEntityManager();
         EntityTransaction tx = session.getTransaction();
-        ArrayList<TractorDriver> allDrivers = null;
+        List<Employee> allEmployees = null;
         try{
             tx.begin();
-            Query<TractorDriver> query = (Query<TractorDriver>) session.createQuery("from TractorDriver");
-            allDrivers =  (ArrayList<TractorDriver>) query.list();
+            allEmployees = session.createQuery("from Employee").getResultList();
             tx.commit();
         }catch(Exception e){
             if (tx != null) {
@@ -153,17 +158,17 @@ public class TractorDriverDaoImpl implements TractorDriverDao {
         }finally {
             session.close();
         }
-        return allDrivers;
+        return allEmployees;
     }
 
     @Override
-    public TractorDriver getTractorDriverByName(String name) {
+    public Employee getTractorDriverByName(String name) {
         session = HibernateUtil.getSessionFactory().createEntityManager();
         EntityTransaction tx = session.getTransaction();
-        TractorDriver driver = null;
+        Employee driver = null;
         try{
             tx.begin();
-            Query<TractorDriver> query = (Query<TractorDriver>) session.createQuery("from TractorDriver where name=:name");
+            Query<Employee> query = (Query<Employee>) session.createQuery("from Employee where name=:name");
             query.setParameter("name",name);
             driver = query.getSingleResult();
             tx.commit();
@@ -179,14 +184,16 @@ public class TractorDriverDaoImpl implements TractorDriverDao {
     }
 
     @Override
-    public TractorDriver getTractorDriverById(Integer driver_id) {
+    public Employee getEmployeeById(Long driverId) {
         session = HibernateUtil.getSessionFactory().createEntityManager();
         EntityTransaction tx = session.getTransaction();
-        TractorDriver driver = null;
+        Employee employee = null;
 
         try{
             tx.begin();
-            driver = session.getReference(TractorDriver.class,driver_id);
+            employee = session.getReference(Employee.class,driverId);
+//            employee.getWorkplace();
+//            System.out.println(employee.getWorkplace().toString());
             tx.commit();
         }catch(Exception e){
             if (tx != null) {
@@ -196,17 +203,17 @@ public class TractorDriverDaoImpl implements TractorDriverDao {
             session.close();
         }
 
-        return driver;
+        return employee;
     }
 
     @Override
     public String[] getAllTractorDriversName(){
         ///отримаємо список всіх операцій
-        ArrayList<TractorDriver> arrayTractorDrivers = getTractorDrivers();
-        String[] names = new String [arrayTractorDrivers.size()];
+        List<Employee> arrayEmployees = getTractorDrivers();
+        String[] names = new String [arrayEmployees.size()];
         ///записуєо назви операцій у масив
         for (int i=0;i<names.length;i++){
-            names[i] = arrayTractorDrivers.get(i).getName();
+            names[i] = arrayEmployees.get(i).getName();
         }
         return names;
     }

@@ -1,6 +1,6 @@
 package com.agricultural.domains;
 
-import com.agricultural.domains.main.TractorDriver;
+import com.agricultural.domains.main.Employee;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 
@@ -46,7 +46,7 @@ public class ExcelDataWriter {
 
 
     public static void writeToExcelAllDriverInformation(
-            TractorDriver driver, String month, String year,TableModel tableModelHectare,
+            Employee driver, String month, String year, TableModel tableModelHectare,
             TableModel tableModelTotalHectare, TableModel tableModelHour, TableModel tableModelTotalHour,
             TableModel tableModelTotal) throws IOException {
         final int SHIFT_FROM_LEFT = 2;

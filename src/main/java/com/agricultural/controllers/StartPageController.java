@@ -24,7 +24,7 @@ public class StartPageController {
     public void allEmployees(ActionEvent actionEvent) {
         try {
             Stage allEmployeesStage = new Stage();
-            Parent parent = FXMLLoader.load(getClass().getResource("/views/employees.fxml"));
+            Parent parent = FXMLLoader.load(getClass().getResource("/views/employee/employees.fxml"));
             Scene employeesScene = new Scene(parent);
 
             allEmployeesStage.setTitle(ALL_EMPLOYEES_STAGE_TITLE);

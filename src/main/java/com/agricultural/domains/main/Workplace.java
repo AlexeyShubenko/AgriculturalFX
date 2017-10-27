@@ -23,7 +23,30 @@ public class Workplace {
     @Column(name = "name")
     private String workPlaceName;
 
-    @OneToMany(mappedBy = "workplace", cascade = CascadeType.ALL)
-    private List<TractorDriver> tractorDriver = new ArrayList<>();
+    @OneToMany(mappedBy = "workplace", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Employee> employee = new ArrayList<>();
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getWorkPlaceName() {
+        return workPlaceName;
+    }
+
+    public void setWorkPlaceName(String workPlaceName) {
+        this.workPlaceName = workPlaceName;
+    }
+
+    @Override
+    public String toString() {
+        return "Workplace{" +
+                "id=" + id +
+                ", workPlaceName='" + workPlaceName + '\'' +
+                '}';
+    }
 }

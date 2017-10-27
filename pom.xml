@@ -126,6 +126,22 @@
 
     <dependencies>
 
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-maven -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok-maven</artifactId>
+            <version>1.16.18.1</version>
+            <!--<type>pom</type>-->
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-maven-plugin -->
+        <!--<dependency>-->
+            <!--<groupId>org.projectlombok</groupId>-->
+            <!--<artifactId>lombok-maven-plugin</artifactId>-->
+            <!--<version>1.16.18.1</version>-->
+        <!--</dependency>-->
+
         <!--&lt;!&ndash;&lt;!&ndash; https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc &ndash;&gt;&ndash;&gt;-->
         <!--<dependency>-->
             <!--<groupId>org.xerial</groupId>-->

@@ -96,9 +96,12 @@ public class MachineController {
 
         MachineDto machineDto = machineDialogController.getMachineDto();
         // силка нульова якщо зміни не вдалося виконати
-        if(Objects.isNull(machineDto)){
+        if(machineDto.getMachineName().equals("")){
             return;
         }
+//        if(Objects.isNull(machineDto)){
+//            return;
+//        }
         machineDto.setSerialNumber(machines.size()+1);
         machines.add(machineDto);
     }

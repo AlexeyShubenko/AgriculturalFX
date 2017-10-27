@@ -9,7 +9,7 @@ import com.agricultural.domains.hoursvirobitok.HourTable;
 import com.agricultural.domains.main.DateAndInformation;
 import com.agricultural.domains.main.MachineTractorUnit;
 import com.agricultural.domains.main.TechnologicalOperation;
-import com.agricultural.domains.main.TractorDriver;
+import com.agricultural.domains.main.Employee;
 import com.agricultural.service.MachineService;
 import com.agricultural.service.OperationService;
 import com.agricultural.service.impl.MachineServiceImpl;
@@ -49,7 +49,7 @@ public class InformationHectareDaoImpl implements InformationHectareDao {
         try{
             tx.begin();
 
-        TractorDriver driver = session.getReference(TractorDriver.class, driverId);
+        Employee driver = session.getReference(Employee.class, driverId);
         ///таблиця гектарного обробітку для даної дати
         HectareTable hectareTable = new HectareTable();
         ///таблиця голинного виробітку
