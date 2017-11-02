@@ -3,6 +3,7 @@ package com.agricultural.controllers.employees;
 import com.agricultural.domains.dto.EmployeeDto;
 import com.agricultural.service.EmployeeService;
 import com.agricultural.service.impl.EmployeeServiceImpl;
+import com.agricultural.utils.DialogManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,6 +20,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class EmployeeController {
 
@@ -116,6 +118,15 @@ public class EmployeeController {
 
     private void editEmployee(ActionEvent actionEvent) {
         System.out.println("EDIT");
+        EmployeeDto employeeToEdit =
+                (EmployeeDto) employeesTableView.getSelectionModel().getSelectedItem();
+        if (Objects.isNull(employeeToEdit)) {
+            DialogManager.showInfo("Wrong action!", "Для редагування треба вибрати поле в таблиці!");
+            return;
+        }
+        this.addEditEmployeeController.setEmployeeDto(employeeToEdit);
+        createAddEditWindow(actionEvent, ADD_EMPLOYEE);
+
     }
 
     private void detailInfEmployee(ActionEvent actionEvent) {

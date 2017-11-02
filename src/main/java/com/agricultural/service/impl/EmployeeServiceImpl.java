@@ -95,4 +95,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public String[] getAllEmployeesName() {
         return tractorDriverDao.getAllTractorDriversName();
     }
+
+    @Override
+    public boolean isExistEmployee(String emplName, String emplPosition) {
+        return tractorDriverDao.isExistEmployee(emplName, emplPosition);
+    }
 }

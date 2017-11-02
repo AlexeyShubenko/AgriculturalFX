@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="137.0" prefWidth="424.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="За місцем роботи">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </Label>
+            <TextField>
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button defaultButton="true" mnemonicParsing="false" text="Зберегти">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="100.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button cancelButton="true" mnemonicParsing="false" text="Скасувати">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="30.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>

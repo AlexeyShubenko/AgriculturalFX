@@ -17,4 +17,6 @@ public interface TractorDriverDao {
     Employee getTractorDriverByName(String name);
     Employee getEmployeeById(Long driverId);
     String[] getAllTractorDriversName();
+
+    boolean isExistEmployee(String emplName, String emplPosition);
 }

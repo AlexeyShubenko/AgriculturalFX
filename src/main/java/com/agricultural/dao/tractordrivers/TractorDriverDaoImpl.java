@@ -19,6 +19,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Alexey on 14.02.2017.
@@ -216,6 +217,31 @@ public class TractorDriverDaoImpl implements TractorDriverDao {
             names[i] = arrayEmployees.get(i).getName();
         }
         return names;
+    }
+
+    @Override
+    public boolean isExistEmployee(String emplName, String emplPosition) {
+        session = HibernateUtil.getSessionFactory().createEntityManager();
+        EntityTransaction tx = session.getTransaction();
+        Employee employee = null;
+
+        try{
+            tx.begin();
+            employee = session.createQuery("from Employee e where e.name=:name and " +
+                    "e.position=:position", Employee.class).
+                    setParameter("name", emplName)
+                    .setParameter("position",emplPosition)
+                    .getSingleResult();
+            tx.commit();
+        }catch(Exception e){
+            if (tx != null) {
+                tx.rollback();
+            }
+        }finally {
+            session.close();
+        }
+        //not null -> exist
+        return Objects.isNull(employee);
     }
 
 

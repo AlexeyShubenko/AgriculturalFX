@@ -19,4 +19,5 @@ public interface EmployeeService {
     Employee getEmployeeById(Long driverId);
     String[] getAllEmployeesName();
 
+    boolean isExistEmployee(String emplName, String emplPosition);
 }
