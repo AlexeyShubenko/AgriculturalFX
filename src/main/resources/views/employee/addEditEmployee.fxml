@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.agricultural.controllers.employees.AddEditEmployeeController">
+   <children>
+      <HBox prefHeight="37.0" prefWidth="408.0">
+         <children>
+            <Label text="Ім'я працівника">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="textFieldName">
+               <HBox.margin>
+                  <Insets left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox prefHeight="13.0" prefWidth="408.0">
+         <children>
+            <Label text="Тарифна ставка">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="textFieldWageRate">
+               <HBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox prefHeight="25.0" prefWidth="408.0">
+         <children>
+            <Label text="Посада">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="textFieldPosition">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="78.0" right="20.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox prefHeight="53.0" prefWidth="408.0">
+         <children>
+            <Label text="За місцем роботи">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </Label>
+            <ChoiceBox fx:id="workPlacesBox" prefWidth="150.0">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </ChoiceBox>
+         </children>
+      </HBox>
+      <HBox prefHeight="37.0" prefWidth="408.0">
+         <children>
+            <Button defaultButton="true" mnemonicParsing="false" text="Зберегти">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="100.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button cancelButton="true" mnemonicParsing="false" text="Скасувати">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>

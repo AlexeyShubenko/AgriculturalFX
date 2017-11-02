@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane stylesheets="/css/buttons.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="450.0" minWidth="450.0" prefHeight="450.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.agricultural.controllers.operations.OperationController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="450.0" minWidth="450.0" prefHeight="450.0" prefWidth="450.0" stylesheets="/css/buttons.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.agricultural.controllers.operations.OperationController">
    <center>
       <VBox prefHeight="483.0" prefWidth="704.0" BorderPane.alignment="CENTER">
          <children>
@@ -15,7 +15,7 @@
                      <children>
                         <Button mnemonicParsing="false" onAction="#openAddOperationWindow" prefHeight="31.0" prefWidth="120.0" text="Додати">
                            <HBox.margin>
-                              <Insets bottom="20.0" left="20.0" right="10.0" top="20.0" />
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </HBox.margin>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#editOperationOpenWindow" prefHeight="31.0" prefWidth="120.0" text="Редагувати">

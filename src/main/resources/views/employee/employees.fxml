@@ -5,28 +5,28 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane stylesheets="/css/buttons.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="350.0" minWidth="1200.0" prefHeight="350.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.agricultural.controllers.employees.EmployeeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="350.0" minWidth="1200.0" prefHeight="350.0" prefWidth="1200.0" stylesheets="/css/buttons.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.agricultural.controllers.employees.EmployeeController">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="20.0">
                <children>
-                  <Button mnemonicParsing="false" text="Додати нового працівника">
+                  <Button fx:id="addEmpl" mnemonicParsing="false" onAction="#checkButtonAction" text="Додати нового працівника">
                      <HBox.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="170.0" text="Редактувати">
+                  <Button fx:id="editEmpl" mnemonicParsing="false" onAction="#checkButtonAction" prefHeight="31.0" prefWidth="170.0" text="Редактувати">
                      <HBox.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" text="Детальна інформація">
+                  <Button fx:id="detailInfEmpl" mnemonicParsing="false" onAction="#checkButtonAction" text="Детальна інформація">
                      <HBox.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" text="Видалити працівника">
+                  <Button fx:id="deleteEmpl" mnemonicParsing="false" onAction="#checkButtonAction" text="Видалити працівника">
                      <HBox.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </HBox.margin>
