@@ -124,6 +124,7 @@ public class AddEditEmployeeController {
         }else {
             try{
                 EmployeeDto newEmployee = new EmployeeDto(emplName,Integer.valueOf(emplWageRate),emplPosition);
+                newEmployee.setWorkplace(workplace);
                 Long id = employeeService.createEmployee(newEmployee);
                 this.employeeDto.setName(emplName);
                 this.employeeDto.setWageRate(Integer.valueOf(emplWageRate));
@@ -137,7 +138,7 @@ public class AddEditEmployeeController {
                 this.employeeDto = null;
             }   
         }
-
+        closeOperationDialog(actionEvent);
     }
 
     public void addWorkplace(ActionEvent actionEvent){
@@ -152,5 +153,21 @@ public class AddEditEmployeeController {
         addWorkplace.showAndWait();
     }
 
+    public void closeOperationDialog(ActionEvent actionEvent) {
+        // close this dialog window
+        Node node = (Node) actionEvent.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
+
+        Object source = actionEvent.getSource();
+        if (source instanceof Button) {
+            Button cancelButton = (Button) source;
+            //if cancel button was clicked
+            if (cancelButton.getId().equals("cancelBtn")) {
+                this.employeeDto = null;
+                return;
+            }
+        }
+    }
 
 }
