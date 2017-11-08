@@ -117,26 +117,34 @@ public class AddEditEmployeeController {
             return;
         }
 
+        this.employeeDto.setName(emplName);
+        this.employeeDto.setWageRate(Integer.valueOf(emplWageRate));
+        this.employeeDto.setPosition(emplPosition);
+        this.employeeDto.setWorkName(emplWorkPlace);
+        this.employeeDto.setWorkplace(workplace);
+        
         if(isUpdate){
             //якщо редагуємо дані праціника
-
+            try {
+                employeeService.editEmployee(employeeDto);
+            } catch (InternalDBException internalException) {
+                DialogManager.showError("Помилка!", internalException.getMessage());
+                // зануляємо силку, це буде значити що не вдалося виконати зміни в бд
+                this.employeeDto = null;
+            }
 
         }else {
             try{
                 EmployeeDto newEmployee = new EmployeeDto(emplName,Integer.valueOf(emplWageRate),emplPosition);
                 newEmployee.setWorkplace(workplace);
                 Long id = employeeService.createEmployee(newEmployee);
-                this.employeeDto.setName(emplName);
-                this.employeeDto.setWageRate(Integer.valueOf(emplWageRate));
-                this.employeeDto.setPosition(emplPosition);
-                this.employeeDto.setWorkName(emplWorkPlace);
-                this.employeeDto.setWorkplace(workplace);
+
                 this.employeeDto.setId(id);
             }catch (InternalDBException internalException){
                 DialogManager.showError("Помилка!", internalException.getMessage());
                 // зануляємо силку, це буде значити що не вдалося виконати зміни в бд
                 this.employeeDto = null;
-            }   
+            }
         }
         closeOperationDialog(actionEvent);
     }
