@@ -22,23 +22,34 @@ import java.io.IOException;
 
 public class WorkplaceController {
 
-    private final String ADD_EMPLOYEE = "Додати нового працівника";
+    private WorkplaceService workplaceService = WorkplaceServiceImpl.getInstance();
+    private EmployeeDto employeeDto;
+    private String workplace;
+    @FXML
+    private TextField workplaceField;
 
+    public EmployeeDto getEmployeeDto() {
+        return employeeDto;
+    }
 
-
-    private void addEmployee(ActionEvent actionEvent) {
-        System.out.println("ADD");
-
-        createAddEditWindow(actionEvent, ADD_EMPLOYEE);
-
+    public void setEmployeeDto(EmployeeDto employeeDto) {
+        this.employeeDto = employeeDto;
     }
 
 
-
-    private void createAddEditWindow(ActionEvent actionEvent, String title) {
-
+    public void addWorkplace(ActionEvent actionEvent) {
+        System.out.println("IN addWorkplace!");
+        String placeName = workplaceField.getText().trim();
+        if (placeName.equals("")) {
+            return;
+            //DialogManager.showError("Помилка при введені даних", "Заповніть текстове поле!");
+        }
+        boolean isExistWorkplace = workplaceService.isExistWorkplace(placeName);
+        if (isExistWorkplace) {
+            DialogManager.showError("Помилка при введені даних", "Місце роботи " + placeName + " вже існує!");
+            return;
+        }
 
     }
-
 
 }
