@@ -49,7 +49,14 @@ public class WorkplaceController {
             DialogManager.showError("Помилка при введені даних", "Місце роботи " + placeName + " вже існує!");
             return;
         }
-
+        //save into database
+        try {
+            workplaceService.createWorkPlace(placeName);
+        } catch (InternalDBException internalException) {
+            DialogManager.showError("Помилка!", internalException.getMessage());
+            return;
+        }
+        closeOperationDialog(actionEvent);
     }
 
 }
