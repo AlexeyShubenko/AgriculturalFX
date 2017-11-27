@@ -59,4 +59,38 @@ public class WorkplaceController {
         closeOperationDialog(actionEvent);
     }
 
+     public void closeOperationDialog(ActionEvent actionEvent) {
+        // close this dialog window
+        Node node = (Node) actionEvent.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
+
+//        Object source = actionEvent.getSource();
+//        if (source instanceof Button) {
+//            Button cancelButton = (Button) source;
+//            //if cancel button was clicked
+//            if (cancelButton.getId().equals("cancelBtn")) {
+//                return;
+//            }
+//        }
+        //close operation window
+        Stage parentStage = (Stage) parentScene.getWindow();
+        parentStage.close();
+        //open operation window
+
+//        FXMLLoader fxmlLoader = new FXMLLoader();
+//
+//         fxmlLoader.setLocation(getClass().getResource("/views/employee/employees.fxml"));
+//        try {
+//            Parent fxmlParentAddEdit = fxmlLoader.load();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        EmployeeController employeeController = fxmlLoader.getController();
+//
+//        employeeController.addEmployee(this.parentEmployeeActionEvent);
+
+    }
+
+    
 }
